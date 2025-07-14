@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Temperature Converter</title>
+    <style>
+      body {
+        font-family: "Segoe UI", sans-serif;
+        background: #e0f7fa; /* Light aqua background */
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 100vh;
+        margin: 0;
+      }
+
+      .converter {
+        background: #ffffff; /* White box */
+        padding: 2rem 3rem;
+        border-radius: 12px;
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+        width: 100%;
+        max-width: 400px;
+        text-align: center;
+        border: 2px solid #b2ebf2; /* Soft border */
+      }
+
+      h1 {
+        margin-bottom: 1.2rem;
+        font-size: 1.8rem;
+        color: #00796b; /* Teal */
+      }
+
+      input[type="text"] {
+        padding: 0.6rem;
+        width: 80%;
+        margin-bottom: 1rem;
+        border-radius: 5px;
+        border: 1px solid #ccc;
+        font-size: 1rem;
+      }
+
+      .radio-group {
+        margin-bottom: 1rem;
+        display: flex;
+        justify-content: center;
+        gap: 1rem;
+      }
+
+      label {
+        font-size: 1rem;
+        color: #00796b;
+      }
+
+      button {
+        padding: 0.5rem 1.5rem;
+        background-color: #0097a7;
+        color: white;
+        font-size: 1rem;
+        border: none;
+        border-radius: 6px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+      }
+
+      button:hover {
+        background-color: #006064;
+      }
+
+      .result {
+        margin-top: 1.5rem;
+        font-size: 1.3rem;
+        color: #004d40;
+      }
+
+      .error {
+        color: red;
+        font-size: 0.9rem;
+        margin-bottom: 0.5rem;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="converter">
+      <h1>Temperature Converter</h1>
+
+      <input type="text" id="temperature" placeholder="Enter temperature" />
+      <div class="error" id="error"></div>
+
+      <div class="radio-group">
+        <label
+          ><input type="radio" name="unit" value="c" checked /> Celsius</label
+        >
+        <label><input type="radio" name="unit" value="f" /> Fahrenheit</label>
+      </div>
+
+      <button onclick="convertTemperature()">Convert</button>
+
+      <div class="result" id="result"></div>
+    </div>
+
+    <script>
+      function convertTemperature() {
+        const tempInput = document.getElementById("temperature").value;
+        const resultDiv = document.getElementById("result");
+        const errorDiv = document.getElementById("error");
+        const unit = document.querySelector('input[name="unit"]:checked').value;
+
+        resultDiv.innerHTML = "";
+        errorDiv.innerHTML = "";
+
+        const temp = parseFloat(tempInput);
+
+        if (isNaN(temp)) {
+          errorDiv.innerHTML = "Please enter a valid number!";
+          return;
+        }
+
+        let converted;
+        if (unit === "c") {
+          converted = (temp * 9) / 5 + 32;
+          resultDiv.innerHTML = `${converted.toFixed(2)} °F`;
+        } else {
+          converted = ((temp - 32) * 5) / 9;
+          resultDiv.innerHTML = `${converted.toFixed(2)} °C`;
+        }
+      }
+    </script>
+  </body>
+</html>
